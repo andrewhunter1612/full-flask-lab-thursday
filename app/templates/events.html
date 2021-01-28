@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</head>
+<body>
+    <header>
+        <h1>{{title}}</h1>
+    </header>
+
+    <section>
+        <form action="/" method="POST" >
+            <label for="event_name">Event Name</label>
+            <input type="text" name="event_name" id="event_name">
+
+            <label for="event_date">Date</label>
+            <input type="date" name="event_date" id="event_date">
+
+            <label for="number">Number of Guests</label>
+            <input type="number" name="number" id="number">
+
+            <label for="location">Room Location</label>
+            <input type="text" name="location" id="location">
+
+            <label for="description">Event Description</label>
+            <textarea name="description" id="description" cols="30" rows="1"></textarea>
+
+            <label for="recurring_event">Recurring Event</label>
+            <input type="checkbox" name="recurring_event" id="recurring_event" >
+
+            <input type="submit" value="Add Event">
+
+        </form>
+    </section>
+    <header>
+        <h2>Non Recurring Events:</h2>
+    </header>
+    {% for event in events%}
+    <div>
+        <p>
+            {{event.event_name}} on {{event.date}}. Number of people: {{event.number_of_guests}}; location: {{event.room_location}}; doing {{event.description}} {{event.recurring}} <form action="/{{loop.index0}}" method="POST"><input type="submit" value="Delete Event"></form>
+        </p>
+    </div>
+
+    {%endfor%}
+
+    <h2>Recurring Events:</h2>
+    {% for event in recurring_events%}
+    <div>
+        <p>
+            {{event.event_name}} on {{event.date}}. Number of people: {{event.number_of_guests}}; location: {{event.room_location}}; doing {{event.description}} 
+        </p>
+    </div>
+
+    {%endfor%}
+    
+</body>
+</html>
